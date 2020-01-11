@@ -40,22 +40,60 @@ export function getStudentData(studentID){
     }).catch(function (error) {
         if (error.response) {
             console.log(error.response.headers);
-            return error.response.headers
         }
         else if (error.request) {
             console.log(error.request);
-            return error.request
 
         }
         else {
             console.log(error.message);
-            return error.message
 
         }
         console.log(error.config);
-        return error.config
     });
     return studentData
+};
+export function getSkillzObject(){
+    const skillzObject = axios.get(baseUrl + '/curriculum/skills', {
+    }).then(response => {
+        // console.log('response is : ' + response.data)
+        return response.data;
+    }).catch(function (error) {
+        if (error.response) {
+            console.log(error.response.headers);
+        }
+        else if (error.request) {
+            console.log(error.request);
+
+        }
+        else {
+            console.log(error.message);
+
+        }
+        console.log(error.config);
+    });
+    return skillzObject
+};
+export function getCoursesObject(){
+    const courseObject = axios.get(baseUrl + '/curriculum/courses', {
+    }).then(response => {
+        // console.log('response is : ' + response.data)
+        return response.data;
+    }).catch(function (error) {
+        if (error.response) {
+            console.log(error.response.headers);
+        }
+        else if (error.request) {
+            console.log(error.request);
+
+        }
+        else {
+            console.log(error.message);
+
+        }
+        console.log(error.config);
+    });
+    return courseObject
 };
 
 // getTable();
