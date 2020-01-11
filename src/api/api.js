@@ -28,26 +28,34 @@ export function getTable() {
 };
 
 export function getStudentData(studentID){
-    axios.get(baseUrl + '/students/' + studentID, {
+    const studentData = axios.get(baseUrl + '/students/' + studentID, {
     }).then(response => {
         // console.log('response is : ' + response.data)
         return response.data;
     }).then(data => {
         console.log(data.student_details);
-        return data.student_details;
+        // return data.student_details;
+        return data.student_details
 
     }).catch(function (error) {
         if (error.response) {
             console.log(error.response.headers);
+            return error.response.headers
         }
         else if (error.request) {
             console.log(error.request);
+            return error.request
+
         }
         else {
             console.log(error.message);
+            return error.message
+
         }
         console.log(error.config);
+        return error.config
     });
+    return studentData
 };
 
 // getTable();
