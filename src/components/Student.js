@@ -1,39 +1,49 @@
 import React from 'react';
-import { getStudentData, getSkillzObject,getCoursesObject } from '../api/api';
+import { getStudentData, getSkillzObject, getCoursesObject } from '../api/api';
+// import Select from 'react-select';
+import {Inputboxes, Skillbox} from './studentComponents';
+import {
+    BrowserRouter as Router,
+    withRouter,
+  } from "react-router-dom";
+
 
 class Studendetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
-            studentID: 1001,
+            studentID: this.props.match.params.id,
             studentData: null,
             skillsArr: null,
             coursesArr: null,
+            selectedOption: null,
         };
 
     };
     componentDidMount() {
-        this.loadStudentData();
-        this.loadSkills();
+        // const id = this.props.match.params.id
+        this.loadStudentData(this.state.studentID);
         this.loadCourses()
     }
 
-    async loadStudentData() {
-        return await getStudentData(1001)
+    async loadStudentData(id) {
+        return await getStudentData(id)
             .then(result =>
                 this.setState({ studentData: result, isLoading: false }))
+            .then(this.loadSkills())
+
 
     };
     async loadSkills() {
         return await getSkillzObject()
             .then(result =>
-                this.setState({skillsArr:result}) )
+                this.setState({ skillsArr: result }))
     }
     async loadCourses() {
         return await getCoursesObject()
             .then(result =>
-                this.setState({coursesArr:result}) )
+                this.setState({ coursesArr: result }))
     }
 
     fillTextBox(key) {
@@ -43,27 +53,67 @@ class Studendetails extends React.Component {
         else {
             return this.state.studentData[key]
         }
-
-
-    }
+    };
+    handleChange = selectedOption => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+    };
     render() {
+        const { selectedOption } = this.state;
+
         return (
             <div>
                 <h1>Student Details</h1>
-                <label htmlFor='firstName'>First Name</label>
-                <input type='text' id='firstName' value={this.fillTextBox('first_name')} />
-                <label htmlFor='lastName'>Last Name</label>
-                <input type='text' id='lastName' value={this.fillTextBox('last_name')} />
+                <Inputboxes id={'firstName'} nameTag={'First Name'} type={'text'} value={this.fillTextBox('first_name')} />
+                <Inputboxes id={'lastName'} nameTag={'Last Name'} type={'text'} value={this.fillTextBox('last_name')} />
                 <br />
-                <label htmlFor='createdOn'>Created On</label>
-                <input type='text' id='createdOn' value={this.fillTextBox('date_created')} />
-                <label htmlFor='updatedOn'>Updated on</label>
-                <input type='text' id='updatedOn' value={this.fillTextBox('last_updated')} />
+                <Inputboxes id={'createdOn'} nameTag={'Created On'} type={'text'} value={this.fillTextBox('date_created')} />
+                <Inputboxes id={'updatedOn'} nameTag={'Updated on'} type={'text'} value={this.fillTextBox('last_updated')} />
                 <br />
-                <label htmlFor='ID'>student ID</label>
-                <input type='text' id='ID' value={this.fillTextBox('id')} />
-        {this.state.skillsArr && <h2>{this.state.skillsArr[3]}</h2>}
-        {this.state.coursesArr && <h2>{this.state.coursesArr[3]}</h2>}
+                <Inputboxes id={'ID'} nameTag={'Student ID'} type={'text'} value={this.fillTextBox('id')} />
+                
+                <div>
+                    <h5>Current skills</h5>
+                    {this.state.skillsArr
+                        &&
+                        this.state.studentData
+                        &&
+                        <ol>
+
+                            {this.state.studentData.existing_skillz.map(arr =>
+                                <li>{this.state.skillsArr[arr[0]]} {arr[1]}/5</li>
+                            )}
+                        </ol>
+                    }
+                </div>
+                <div>
+                    <h5>Desired skills</h5>
+                    {this.state.skillsArr
+                        &&
+                        this.state.studentData
+                        &&
+                        <ol>
+
+                            {this.state.studentData.desired_skillz.map(arr =>
+                                <li>{this.state.skillsArr[arr[0]]} {arr[1]}/5</li>
+                            )}
+                        </ol>
+                    }
+                </div>
+                <div>
+                    <h5>Course Interests</h5>
+                    {this.state.coursesArr
+                        &&
+                        this.state.studentData
+                        &&
+                        <ol>
+
+                            {this.state.studentData.course_interests.map(arr =>
+                                <li>{this.state.coursesArr[arr]}</li>
+                            )}
+                        </ol>
+                    }
+                </div>
             </div>
         )
     };

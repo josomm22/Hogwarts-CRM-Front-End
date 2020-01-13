@@ -96,5 +96,7 @@ export function getCoursesObject(){
     return courseObject
 };
 
+
+
 // getTable();
 // getStudentData(1001);

@@ -17,11 +17,15 @@ function App() {
 
     <div className="App">
         <Navbar/>
+        <Switch>
+
       {/* <Welcome/> */}
+        <Route path="/students">
+        <Students/>
+        </Route>
+        <Route path = '/studentdetails/:id' component={ Studentdetails}/>
         
-        {/* <Students/> */}
-        <Studentdetails/>
-        
+        </Switch>
     </div>
     </Router>
   );
