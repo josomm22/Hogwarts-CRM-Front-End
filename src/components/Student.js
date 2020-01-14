@@ -1,7 +1,7 @@
 import React from 'react';
 import { getStudentData, getSkillzObject, getCoursesObject } from '../api/api';
 import Select from 'react-select';
-import { Inputboxes, Skillbox } from './studentComponents';
+import { Inputboxes } from './studentComponents';
 
 
 class Studendetails extends React.Component {
@@ -19,7 +19,9 @@ class Studendetails extends React.Component {
             skillsArr: null,
             coursesArr: null,
             selectedOption: null,
-            options: null,
+            skillOptions: null,
+            courseOptions: null,
+            isReadOnly: false,
         };
         this.handleChange = this.handleChange.bind(this);
 
@@ -42,7 +44,7 @@ class Studendetails extends React.Component {
                     desiredSkills: result.desired_skillz,
                     courseInterests: result.course_interests,
                     id: result.id,
-                    isLoading: false
+                    isLoading: false,
                 }))
             .then(this.loadSkills())
 
@@ -59,22 +61,32 @@ class Studendetails extends React.Component {
                     option.label = value;
                     newOptions.push(option)
                 };
-                this.setState({ options: newOptions })
+                this.setState({ skillOptions: newOptions })
             }
             )
     }
-    convertToValueLabel(obj) {
+    convertToValueLabel(obj, type) {
         let option = {};
         option.value = obj[0];
-        option.label = this.state.skillsArr[obj[0]];
+        option.label = this.state[type][obj[0]];
         return option;
 
 
     }
     async loadCourses() {
         return await getCoursesObject()
-            .then(result =>
-                this.setState({ coursesArr: result }))
+            .then(result => {
+                this.setState({ coursesArr: result })
+                let newOptions = [];
+                for (let [key, value] of Object.entries(result)) {
+                    let option = {};
+                    option.value = key;
+                    option.label = value;
+                    newOptions.push(option)
+                };
+                this.setState({ courseOptions: newOptions })
+            }
+            )
     }
 
     handleChange(selectedOption, i, array) {
@@ -97,7 +109,7 @@ class Studendetails extends React.Component {
 
     };
     render() {
-        const { firstName, lastName, createdOn, updatedOn, id, existingSkills, desiredSkills, courseInterests } = this.state;
+        const { firstName, lastName, createdOn, updatedOn, id, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
         return (
             <div>
                 <h1>Student Details</h1>
@@ -107,7 +119,7 @@ class Studendetails extends React.Component {
                 <Inputboxes id={'createdOn'} readOnly={true} nameTag={'Created On'} type={'text'} value={createdOn} />
                 <Inputboxes id={'updatedOn'} readOnly={true} nameTag={'Updated on'} type={'text'} value={updatedOn} />
                 <br />
-                <Inputboxes id={'id'} readOnly={true} nameTag={'Student ID'} type={'text'} value={id} />
+                <Inputboxes id={'id'} readOnly={isReadOnly} nameTag={'Student ID'} type={'text'} value={id} />
 
                 <div>
                     <h5>Current skills</h5>
@@ -120,11 +132,21 @@ class Studendetails extends React.Component {
                             {existingSkills.map((arr, i) =>
                                 <li>
                                     <Select
+                                        isSearchable={true}
+                                        isDisabled={isReadOnly}
                                         onChange={(event) => this.handleChange(event, i, 'existingSkills')}
-                                        options={this.state.options}
-                                        value={this.convertToValueLabel(arr)}
+                                        options={this.state.skillOptions}
+                                        value={this.convertToValueLabel(arr, 'skillsArr')}
                                     />
-                                    <input type={'number'} onChange={(event) => this.handleChange(event, i, 'existingSkills')} step={1} min={1} max={5} readOnly={false} value={arr[1]} index={i}
+                                    <input
+                                        type={'number'}
+                                        onChange={(event) => this.handleChange(event, i, 'existingSkills')}
+                                        step={1}
+                                        min={1}
+                                        max={5}
+                                        readOnly={isReadOnly}
+                                        value={arr[1]}
+                                        index={i}
                                     />
                                 </li>
                             )}
@@ -132,7 +154,7 @@ class Studendetails extends React.Component {
                     }
                 </div>
                 <div>
-                    <h5>Desired Skills</h5>
+                    <h5>Desired skills</h5>
                     {this.state.skillsArr
                         &&
                         this.state.studentData
@@ -142,26 +164,43 @@ class Studendetails extends React.Component {
                             {desiredSkills.map((arr, i) =>
                                 <li>
                                     <Select
-                                        onChange={this.handleChange}
-                                        options={this.state.options}
-                                        value={this.convertToValueLabel(arr, 0)}
+                                        isSearchable={true}
+                                        isDisabled={isReadOnly}
+                                        onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
+                                        options={this.state.skillOptions}
+                                        value={this.convertToValueLabel(arr, 'skillsArr')}
                                     />
-                                    <input type={'number'} step={1} readOnly={true} value={arr[1]} />
+                                    <input
+                                        type={'number'}
+                                        onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
+                                        step={1}
+                                        min={1}
+                                        max={5}
+                                        readOnly={isReadOnly}
+                                        value={arr[1]}
+                                        index={i}
+                                    />
                                 </li>
                             )}
                         </ol>
                     }
                 </div>
                 <div>
-                    <h5>Course Interests</h5>
+                    <h5>Course Interests new</h5>
                     {this.state.coursesArr
                         &&
                         this.state.studentData
                         &&
                         <ol>
 
-                            {courseInterests.map(arr =>
-                                <li>{this.state.coursesArr[arr]}</li>
+                            {courseInterests.map((arr, i) =>
+                                <Select
+                                    isSearchable={true}
+                                    isDisabled={isReadOnly}
+                                    onChange={(event) => this.handleChange(event, i, 'courseInterests')}
+                                    options={this.state.courseOptions}
+                                    value={this.convertToValueLabel(arr, 'coursesArr')}
+                                />
                             )}
                         </ol>
                     }
