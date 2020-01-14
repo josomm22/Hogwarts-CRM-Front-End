@@ -100,7 +100,10 @@ export function postNewStudent(object) {
 
     const studentObject = axios.post(baseUrl + '/students', {
         'first_name': object.firstName,
-        'last_name': object.lastName
+        'last_name': object.lastName,
+        'existing_skillz': object.currentSkills,
+        'desired_skillz': object.desiredSkills,
+        'course_interests': object.courseInterests,
     }).then(response => {
         // console.log('response is : ' + response.data)
         return response.data;

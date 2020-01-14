@@ -2,6 +2,7 @@ import React from 'react';
 import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
 import Select from 'react-select';
 import { Inputboxes } from './studentComponents';
+// import {loadStudentData} from '../api/loaders'
 
 class studentObj {
     constructor(first_name,last_name,existing_skillz,desired_skillz,course_interests,id){
@@ -75,7 +76,7 @@ class Studendetails extends React.Component {
                 this.setState({ skillOptions: newOptions })
             }
             )
-    }
+    };
     convertToValueLabel(obj, type) {
         let option = {};
         option.value = obj[0];
@@ -83,7 +84,7 @@ class Studendetails extends React.Component {
         return option;
 
 
-    }
+    };
     async loadCourses() {
         return await getCoursesObject()
             .then(result => {
@@ -98,7 +99,7 @@ class Studendetails extends React.Component {
                 this.setState({ courseOptions: newOptions })
             }
             )
-    }
+    };
 
     handleChange(selectedOption, i, array) {
         if (selectedOption.value) {
@@ -133,7 +134,7 @@ class Studendetails extends React.Component {
         })
     };
     render() {
-        const { firstName, lastName, createdOn, updatedOn, id, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
+        const { firstName, lastName, createdOn, updatedOn, studentID, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
         return (
             <div>
                 <h1>Student Details</h1>
@@ -145,7 +146,7 @@ class Studendetails extends React.Component {
                 <Inputboxes id={'createdOn'} readOnly={true} nameTag={'Created On'} type={'text'} value={createdOn} />
                 <Inputboxes id={'updatedOn'} readOnly={true} nameTag={'Updated on'} type={'text'} value={updatedOn} />
                 <br />
-                <Inputboxes id={'id'} readOnly={true} nameTag={'Student ID'} type={'text'} value={id} />
+                <Inputboxes id={'id'} readOnly={true} nameTag={'Student ID'} type={'text'} value={studentID} />
 
                 <div>
                     <h5>Current skills</h5>

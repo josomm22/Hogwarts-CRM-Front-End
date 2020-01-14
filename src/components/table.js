@@ -2,12 +2,7 @@ import React from 'react';
 import { getTable } from '../api/api'
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
-    useLocation,
-    useRouteMatch,
-    useParams
 } from "react-router-dom";
 
 
@@ -38,14 +33,17 @@ export class Students extends React.Component {
         return (
             <div>
                 <table>
-                    <tr>
-                        <th>First Name</th>
-                        <th>last Name</th>
-                        <th>Date Created</th>
-                        <th>Last Updated</th>
-                        <th>Details</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>last Name</th>
+                            <th>Date Created</th>
+                            <th>Last Updated</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
                     {isLoading &&
+                        <tbody>
                             <tr>
                                 <td>Loading... </td>
                                 <td> </td>
@@ -53,17 +51,20 @@ export class Students extends React.Component {
                                 <td> </td>
                                 <td> </td>
                             </tr>
-                        
+                        </tbody>
+
                     }
                     {!isLoading &&
-                        students.map(obj =>
-                            <tr>
+                        students.map((obj,i) =>
+                        <tbody key={i}>
+                            <tr key={i}>
                                 <td>{obj.firstName} </td>
                                 <td>{obj.lastName} </td>
                                 <td>{obj.dateCreated} </td>
                                 <td>{obj.dateUpdated} </td>
-                                <td><Link to={'/studentdetails/'+obj.id} >details</Link></td>
+                                <td><Link to={'/studentdetails/' + obj.id} >details</Link></td>
                             </tr>
+                        </tbody>
                         )
                     }
                 </table>
