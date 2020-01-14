@@ -1,8 +1,18 @@
 import React from 'react';
-import { getStudentData, getSkillzObject, getCoursesObject } from '../api/api';
+import { getStudentData, getSkillzObject, getCoursesObject, postNewStudent } from '../api/api';
 import Select from 'react-select';
 import { Inputboxes } from './studentComponents';
 
+class studentObj {
+    constructor(first_name,last_name,existing_skillz,desired_skillz,course_interests,id){
+        this.first_name - first_name;
+        this.last_name = last_name;
+        this.existing_skillz = existing_skillz;
+        this.desired_skillz = desired_skillz;
+        this.course_interests = course_interests;
+        this.id = id
+    }
+}
 
 class Studendetails extends React.Component {
     constructor(props) {
@@ -21,7 +31,7 @@ class Studendetails extends React.Component {
             selectedOption: null,
             skillOptions: null,
             courseOptions: null,
-            isReadOnly: false,
+            isReadOnly: true,
         };
         this.handleChange = this.handleChange.bind(this);
 
@@ -108,11 +118,28 @@ class Studendetails extends React.Component {
         }
 
     };
+    updateStudentData(){
+        const {firstName, lastName, desiredSkills,existingSkills,courseInterests,id} = this.state;
+        let newStudentObject = new studentObj (firstName,lastName,existingSkills,desiredSkills,courseInterests,id)
+        editStudent(newStudentObject).then(response =>{
+            console.log(response)
+            const newStudent = response.new_student
+            this.setState({
+                firstName : newStudent.first_name,
+                lastName : newStudent.last_name,
+                createdOn: newStudent.date_created,
+                id: newStudent.id,
+            })
+
+        })
+    };
     render() {
         const { firstName, lastName, createdOn, updatedOn, id, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
         return (
             <div>
                 <h1>Student Details</h1>
+                <button onClick = {()=>{this.setState({isReadOnly: false})}}>Edit</button>
+                <button>Save</button>
                 <Inputboxes id={'firstName'} readOnly={true} nameTag={'First Name'} type={'text'} value={firstName} />
                 <Inputboxes id={'lastName'} readOnly={true} nameTag={'Last Name'} type={'text'} value={lastName} />
                 <br />

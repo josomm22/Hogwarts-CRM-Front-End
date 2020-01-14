@@ -120,6 +120,26 @@ export function postNewStudent(object) {
     });
     return studentObject
 }
+export function editStudent(object){
+    const studentObject = axios.put(baseUrl + '/students/' +object.id,{object}).then(response => {
+        // console.log('response is : ' + response.data)
+        return response.data;
+    }).catch(function (error) {
+        if (error.response) {
+            console.log(error.response.headers);
+        }
+        else if (error.request) {
+            console.log(error.request);
+
+        }
+        else {
+            console.log(error.message);
+
+        }
+        console.log(error.config);
+    });
+    return studentObject
+}
 
 // getTable();
 // getStudentData(1001);
