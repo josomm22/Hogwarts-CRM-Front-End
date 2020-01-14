@@ -121,6 +121,7 @@ export function postNewStudent(object) {
     return studentObject
 }
 export function editStudent(object){
+    console.log(object);
     const studentObject = axios.put(baseUrl + '/students/' +object.id,{object}).then(response => {
         // console.log('response is : ' + response.data)
         return response.data;

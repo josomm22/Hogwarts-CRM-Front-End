@@ -1,11 +1,11 @@
 import React from 'react';
-import { getStudentData, getSkillzObject, getCoursesObject, postNewStudent } from '../api/api';
+import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
 import Select from 'react-select';
 import { Inputboxes } from './studentComponents';
 
 class studentObj {
     constructor(first_name,last_name,existing_skillz,desired_skillz,course_interests,id){
-        this.first_name - first_name;
+        this.first_name = first_name;
         this.last_name = last_name;
         this.existing_skillz = existing_skillz;
         this.desired_skillz = desired_skillz;
@@ -34,6 +34,7 @@ class Studendetails extends React.Component {
             isReadOnly: true,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.updateStudentData = this.updateStudentData.bind(this);
 
     };
     componentDidMount() {
@@ -121,14 +122,12 @@ class Studendetails extends React.Component {
     updateStudentData(){
         const {firstName, lastName, desiredSkills,existingSkills,courseInterests,id} = this.state;
         let newStudentObject = new studentObj (firstName,lastName,existingSkills,desiredSkills,courseInterests,id)
+        console.log(newStudentObject)
         editStudent(newStudentObject).then(response =>{
             console.log(response)
-            const newStudent = response.new_student
+            const details = response.student_details
             this.setState({
-                firstName : newStudent.first_name,
-                lastName : newStudent.last_name,
-                createdOn: newStudent.date_created,
-                id: newStudent.id,
+                updatedOn: details.last_updated,
             })
 
         })
@@ -139,14 +138,14 @@ class Studendetails extends React.Component {
             <div>
                 <h1>Student Details</h1>
                 <button onClick = {()=>{this.setState({isReadOnly: false})}}>Edit</button>
-                <button>Save</button>
-                <Inputboxes id={'firstName'} readOnly={true} nameTag={'First Name'} type={'text'} value={firstName} />
-                <Inputboxes id={'lastName'} readOnly={true} nameTag={'Last Name'} type={'text'} value={lastName} />
+                <button onClick = {this.updateStudentData}>Save</button>
+                <Inputboxes id={'firstName'} readOnly={isReadOnly} nameTag={'First Name'} type={'text'} value={firstName} />
+                <Inputboxes id={'lastName'} readOnly={isReadOnly} nameTag={'Last Name'} type={'text'} value={lastName} />
                 <br />
                 <Inputboxes id={'createdOn'} readOnly={true} nameTag={'Created On'} type={'text'} value={createdOn} />
                 <Inputboxes id={'updatedOn'} readOnly={true} nameTag={'Updated on'} type={'text'} value={updatedOn} />
                 <br />
-                <Inputboxes id={'id'} readOnly={isReadOnly} nameTag={'Student ID'} type={'text'} value={id} />
+                <Inputboxes id={'id'} readOnly={true} nameTag={'Student ID'} type={'text'} value={id} />
 
                 <div>
                     <h5>Current skills</h5>
