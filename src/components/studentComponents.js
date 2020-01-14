@@ -6,7 +6,7 @@ export const Inputboxes = props => {
     return (
         <div>
             <label for={props.id}>{props.nameTag}: </label>
-            <input type={props.type} id={props.id} value={props.value} />
+            <input type={props.type} readOnly={props.readOnly} id={props.id} value={props.value} />
         </div>
     )
 };

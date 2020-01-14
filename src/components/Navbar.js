@@ -16,7 +16,7 @@ const Navbar = () => {
                     <NavLink exact={true} activeClassName="is-Active" to="/studentdetails/1001"> Student Details </NavLink>
                 </div>
                 <div className='button'>
-                    <NavLink activeClassName="is-Active" to="/newStudent">
+                    <NavLink activeClassName="is-Active" to="/newstudent">
                         New Student
                     </NavLink>
                 </div>
@@ -25,7 +25,7 @@ const Navbar = () => {
                         Summary
                     </NavLink>
                 </div>
-                
+
             </div>
         </nav>
     )

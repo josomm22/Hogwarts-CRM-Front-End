@@ -1,11 +1,8 @@
 import React from 'react';
 import { getStudentData, getSkillzObject, getCoursesObject } from '../api/api';
 // import Select from 'react-select';
-import {Inputboxes, Skillbox} from './studentComponents';
-import {
-    BrowserRouter as Router,
-    withRouter,
-  } from "react-router-dom";
+import { Inputboxes, Skillbox } from './studentComponents';
+
 
 
 class Studendetails extends React.Component {
@@ -59,19 +56,18 @@ class Studendetails extends React.Component {
         console.log(`Option selected:`, selectedOption);
     };
     render() {
-        const { selectedOption } = this.state;
 
         return (
             <div>
                 <h1>Student Details</h1>
-                <Inputboxes id={'firstName'} nameTag={'First Name'} type={'text'} value={this.fillTextBox('first_name')} />
-                <Inputboxes id={'lastName'} nameTag={'Last Name'} type={'text'} value={this.fillTextBox('last_name')} />
+                <Inputboxes id={'firstName'} readOnly={true} nameTag={'First Name'} type={'text'} value={this.fillTextBox('first_name')} />
+                <Inputboxes id={'lastName'} readOnly={true} nameTag={'Last Name'} type={'text'} value={this.fillTextBox('last_name')} />
                 <br />
-                <Inputboxes id={'createdOn'} nameTag={'Created On'} type={'text'} value={this.fillTextBox('date_created')} />
-                <Inputboxes id={'updatedOn'} nameTag={'Updated on'} type={'text'} value={this.fillTextBox('last_updated')} />
+                <Inputboxes id={'createdOn'} readOnly={true} nameTag={'Created On'} type={'text'} value={this.fillTextBox('date_created')} />
+                <Inputboxes id={'updatedOn'} readOnly={true} nameTag={'Updated on'} type={'text'} value={this.fillTextBox('last_updated')} />
                 <br />
-                <Inputboxes id={'ID'} nameTag={'Student ID'} type={'text'} value={this.fillTextBox('id')} />
-                
+                <Inputboxes id={'ID'} readOnly={true} nameTag={'Student ID'} type={'text'} value={this.fillTextBox('id')} />
+
                 <div>
                     <h5>Current skills</h5>
                     {this.state.skillsArr

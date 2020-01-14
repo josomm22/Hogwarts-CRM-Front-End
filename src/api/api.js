@@ -27,7 +27,7 @@ export function getTable() {
     return data
 };
 
-export function getStudentData(studentID){
+export function getStudentData(studentID) {
     const studentData = axios.get(baseUrl + '/students/' + studentID, {
     }).then(response => {
         // console.log('response is : ' + response.data)
@@ -53,7 +53,7 @@ export function getStudentData(studentID){
     });
     return studentData
 };
-export function getSkillzObject(){
+export function getSkillzObject() {
     const skillzObject = axios.get(baseUrl + '/curriculum/skills', {
     }).then(response => {
         // console.log('response is : ' + response.data)
@@ -74,7 +74,7 @@ export function getSkillzObject(){
     });
     return skillzObject
 };
-export function getCoursesObject(){
+export function getCoursesObject() {
     const courseObject = axios.get(baseUrl + '/curriculum/courses', {
     }).then(response => {
         // console.log('response is : ' + response.data)
@@ -96,7 +96,30 @@ export function getCoursesObject(){
     return courseObject
 };
 
+export function postNewStudent(object) {
 
+    const studentObject = axios.post(baseUrl + '/students', {
+        'first_name': object.firstName,
+        'last_name': object.lastName
+    }).then(response => {
+        // console.log('response is : ' + response.data)
+        return response.data;
+    }).catch(function (error) {
+        if (error.response) {
+            console.log(error.response.headers);
+        }
+        else if (error.request) {
+            console.log(error.request);
+
+        }
+        else {
+            console.log(error.message);
+
+        }
+        console.log(error.config);
+    });
+    return studentObject
+}
 
 // getTable();
 // getStudentData(1001);
