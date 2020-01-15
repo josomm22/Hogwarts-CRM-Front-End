@@ -1,11 +1,11 @@
 import React from 'react';
 import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
 import Select from 'react-select';
-import { Inputboxes } from './studentComponents';
+import { Inputboxes, SkillzDropdown } from './studentComponents';
 // import {loadStudentData} from '../api/loaders'
 
 class studentObj {
-    constructor(first_name,last_name,existing_skillz,desired_skillz,course_interests,id){
+    constructor(first_name, last_name, existing_skillz, desired_skillz, course_interests, id) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.existing_skillz = existing_skillz;
@@ -35,6 +35,7 @@ class Studendetails extends React.Component {
             isReadOnly: true,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this);
         this.updateStudentData = this.updateStudentData.bind(this);
 
     };
@@ -100,7 +101,11 @@ class Studendetails extends React.Component {
             }
             )
     };
-
+    handleTextChange(event) {
+        let change = {}
+        change[event.target.id] = event.target.value
+        this.setState(change)
+    };
     handleChange(selectedOption, i, array) {
         if (selectedOption.value) {
             console.log('index is ' + i + 'value is ' + selectedOption.value);
@@ -120,11 +125,11 @@ class Studendetails extends React.Component {
         }
 
     };
-    updateStudentData(){
-        const {firstName, lastName, desiredSkills,existingSkills,courseInterests,id} = this.state;
-        let newStudentObject = new studentObj (firstName,lastName,existingSkills,desiredSkills,courseInterests,id)
+    updateStudentData() {
+        const { firstName, lastName, desiredSkills, existingSkills, courseInterests, id } = this.state;
+        let newStudentObject = new studentObj(firstName, lastName, existingSkills, desiredSkills, courseInterests, id)
         console.log(newStudentObject)
-        editStudent(newStudentObject).then(response =>{
+        editStudent(newStudentObject).then(response => {
             console.log(response)
             const details = response.student_details
             this.setState({
@@ -138,15 +143,44 @@ class Studendetails extends React.Component {
         return (
             <div>
                 <h1>Student Details</h1>
-                <button onClick = {()=>{this.setState({isReadOnly: false})}}>Edit</button>
-                <button onClick = {this.updateStudentData}>Save</button>
-                <Inputboxes id={'firstName'} readOnly={isReadOnly} nameTag={'First Name'} type={'text'} value={firstName} />
-                <Inputboxes id={'lastName'} readOnly={isReadOnly} nameTag={'Last Name'} type={'text'} value={lastName} />
+                <button onClick={
+                    () => { this.setState({ isReadOnly: false }) }}>Edit</button>
+                <button onClick={this.updateStudentData}>
+                    Save
+                </button>
+                <Inputboxes
+                    id={'firstName'}
+                    readOnly={isReadOnly}
+                    nameTag={'First Name'}
+                    type={'text'}
+                    value={firstName}
+                    onChange={this.handleTextChange} />
+                <Inputboxes
+                    id={'lastName'}
+                    readOnly={isReadOnly}
+                    nameTag={'Last Name'}
+                    type={'text'}
+                    value={lastName} />
                 <br />
-                <Inputboxes id={'createdOn'} readOnly={true} nameTag={'Created On'} type={'text'} value={createdOn} />
-                <Inputboxes id={'updatedOn'} readOnly={true} nameTag={'Updated on'} type={'text'} value={updatedOn} />
+                <Inputboxes
+                    id={'createdOn'}
+                    readOnly={true}
+                    nameTag={'Created On'}
+                    type={'text'}
+                    value={createdOn} />
+                <Inputboxes
+                    id={'updatedOn'}
+                    readOnly={true}
+                    nameTag={'Updated on'}
+                    type={'text'}
+                    value={updatedOn} />
                 <br />
-                <Inputboxes id={'id'} readOnly={true} nameTag={'Student ID'} type={'text'} value={studentID} />
+                <Inputboxes
+                    id={'id'}
+                    readOnly={true}
+                    nameTag={'Student ID'}
+                    type={'text'}
+                    value={studentID} />
 
                 <div>
                     <h5>Current skills</h5>
@@ -158,22 +192,14 @@ class Studendetails extends React.Component {
 
                             {existingSkills.map((arr, i) =>
                                 <li>
-                                    <Select
+                                    <SkillzDropdown
+                                        index={i}
                                         isSearchable={true}
-                                        isDisabled={isReadOnly}
+                                        isReadonly={isReadOnly}
                                         onChange={(event) => this.handleChange(event, i, 'existingSkills')}
                                         options={this.state.skillOptions}
                                         value={this.convertToValueLabel(arr, 'skillsArr')}
-                                    />
-                                    <input
-                                        type={'number'}
-                                        onChange={(event) => this.handleChange(event, i, 'existingSkills')}
-                                        step={1}
-                                        min={1}
-                                        max={5}
-                                        readOnly={isReadOnly}
-                                        value={arr[1]}
-                                        index={i}
+                                        arr={arr}
                                     />
                                 </li>
                             )}
@@ -187,25 +213,16 @@ class Studendetails extends React.Component {
                         this.state.studentData
                         &&
                         <ol>
-
                             {desiredSkills.map((arr, i) =>
                                 <li>
-                                    <Select
+                                    <SkillzDropdown
+                                        index={i}
                                         isSearchable={true}
-                                        isDisabled={isReadOnly}
+                                        isReadonly={isReadOnly}
                                         onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
                                         options={this.state.skillOptions}
                                         value={this.convertToValueLabel(arr, 'skillsArr')}
-                                    />
-                                    <input
-                                        type={'number'}
-                                        onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
-                                        step={1}
-                                        min={1}
-                                        max={5}
-                                        readOnly={isReadOnly}
-                                        value={arr[1]}
-                                        index={i}
+                                        arr={arr}
                                     />
                                 </li>
                             )}

@@ -5,6 +5,20 @@ import {
     Link,
 } from "react-router-dom";
 
+// const MyContext = React.createContext();
+
+// export class MyProvider extends React.Component {
+//     state = {
+//         isLoading: true,
+//         students: [],
+//     }
+//     render() {
+//         return (
+//         <MyContext.Provider value={{state:this.state}}>
+// {this.props.children}
+//         </MyContext.Provider>)
+//     }
+// }
 
 export class Students extends React.Component {
     constructor(props) {
@@ -55,16 +69,16 @@ export class Students extends React.Component {
 
                     }
                     {!isLoading &&
-                        students.map((obj,i) =>
-                        <tbody key={i}>
-                            <tr key={i}>
-                                <td>{obj.firstName} </td>
-                                <td>{obj.lastName} </td>
-                                <td>{obj.dateCreated} </td>
-                                <td>{obj.dateUpdated} </td>
-                                <td><Link to={'/studentdetails/' + obj.id} >details</Link></td>
-                            </tr>
-                        </tbody>
+                        students.map((obj, i) =>
+                            <tbody key={i}>
+                                <tr key={i}>
+                                    <td>{obj.firstName} </td>
+                                    <td>{obj.lastName} </td>
+                                    <td>{obj.dateCreated} </td>
+                                    <td>{obj.dateUpdated} </td>
+                                    <td><Link to={'/studentdetails/' + obj.id} >details</Link></td>
+                                </tr>
+                            </tbody>
                         )
                     }
                 </table>
@@ -74,4 +88,3 @@ export class Students extends React.Component {
     }
 
 }
-// export default Students;

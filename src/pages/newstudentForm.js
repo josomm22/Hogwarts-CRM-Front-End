@@ -1,7 +1,7 @@
-import React, { createContext } from 'react';
-// import { Inputboxes } from '../components/studentComponents';
+import React from 'react';
+import { Inputboxes, SkillzDropdown } from '../components/studentComponents';
 import Select from 'react-select';
-import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
+import { getSkillzObject, getCoursesObject } from '../api/api';
 import { postNewStudent } from '../api/api'
 
 class studentObj {
