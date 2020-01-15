@@ -13,7 +13,7 @@ class studentObj {
         this.course_interests = course_interests;
         this.id = id
     }
-}
+};
 
 class Studendetails extends React.Component {
     constructor(props) {

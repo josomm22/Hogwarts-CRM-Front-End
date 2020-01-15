@@ -4,6 +4,16 @@ import Select from 'react-select';
 import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
 import { postNewStudent } from '../api/api'
 
+class studentObj {
+    constructor(first_name,last_name,existing_skillz,desired_skillz,course_interests,id){
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.existing_skillz = existing_skillz;
+        this.desired_skillz = desired_skillz;
+        this.course_interests = course_interests;
+    }
+};
+
 class Newstudentform extends React.Component {
     constructor(props) {
         super(props);
@@ -88,8 +98,8 @@ class Newstudentform extends React.Component {
 
     };
     handleSubmit() {
-        const { firstName, lastName } = this.state;
-        let newStudentObject = { firstName: firstName, lastName: lastName };
+        const {firstName, lastName, desiredSkills,existingSkills,courseInterests,id} = this.state;
+        let newStudentObject = new studentObj (firstName,lastName,existingSkills,desiredSkills,courseInterests)
         postNewStudent(newStudentObject).then(response => {
             console.log(response)
             const newStudent = response.new_student

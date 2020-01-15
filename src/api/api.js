@@ -98,13 +98,9 @@ export function getCoursesObject() {
 
 export function postNewStudent(object) {
 
-    const studentObject = axios.post(baseUrl + '/students', {
-        'first_name': object.firstName,
-        'last_name': object.lastName,
-        'existing_skillz': object.currentSkills,
-        'desired_skillz': object.desiredSkills,
-        'course_interests': object.courseInterests,
-    }).then(response => {
+    const studentObject = axios.post(baseUrl + '/students',
+        object
+    ).then(response => {
         // console.log('response is : ' + response.data)
         return response.data;
     }).catch(function (error) {
@@ -123,9 +119,9 @@ export function postNewStudent(object) {
     });
     return studentObject
 }
-export function editStudent(object){
+export function editStudent(object) {
     console.log(object);
-    const studentObject = axios.put(baseUrl + '/students/' +object.id,{object}).then(response => {
+    const studentObject = axios.put(baseUrl + '/students/' + object.id, { object }).then(response => {
         // console.log('response is : ' + response.data)
         return response.data;
     }).catch(function (error) {
