@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 import Welcome from './components/main'
 import Studentdetails from './components/Student'
 import Newstudentform from './pages/newstudentForm'
+import { Chart} from './pages/summary'
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/newstudent">
             <Newstudentform />
+          </Route>
+          <Route path="/summary">
+            <Chart/>
           </Route>
           <Route path='/studentdetails/:id' component={Studentdetails} />
 

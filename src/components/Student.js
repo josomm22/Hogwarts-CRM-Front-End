@@ -154,13 +154,16 @@ class Studendetails extends React.Component {
                     nameTag={'First Name'}
                     type={'text'}
                     value={firstName}
-                    onChange={this.handleTextChange} />
+                    onChange={this.handleTextChange} 
+                    />
                 <Inputboxes
                     id={'lastName'}
                     readOnly={isReadOnly}
                     nameTag={'Last Name'}
                     type={'text'}
-                    value={lastName} />
+                    value={lastName} 
+                    onChange={this.handleTextChange} 
+                    />
                 <br />
                 <Inputboxes
                     id={'createdOn'}

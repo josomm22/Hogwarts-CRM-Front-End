@@ -126,22 +126,40 @@ class Newstudentform extends React.Component {
 
     };
     render() {
-        const { firstName, lastName, createdOn, updatedOn, id, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
+        const { firstName, lastName, createdOn, id, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
 
         return (
             <div>
                 <h1>Student Details</h1>
-                <label for={'firstName'}>First Name: </label>
-                <input type={'text'} id={'firstName'} value={firstName} onChange={this.handleTextChange.bind(this)} />
-                <label for={'lastName'}>Last Name: </label>
-                <input type={'text'} id={'lastName'} value={lastName} onChange={this.handleTextChange.bind(this)} />
+                <Inputboxes
+                    id={'firstName'}
+                    readOnly={isReadOnly}
+                    nameTag={'First Name'}
+                    type={'text'}
+                    value={firstName}
+                    onChange={this.handleTextChange} />
+                <Inputboxes
+                    id={'lastName'}
+                    readOnly={isReadOnly}
+                    nameTag={'Last Name'}
+                    type={'text'}
+                    value={lastName} 
+                    onChange={this.handleTextChange} />
+
                 <br />
-                <label for={'createdOn'}>Created On: </label>
-                <input type={'text'} readOnly={true} id={'createdOn'} value={createdOn} onChange={this.handleTextChange.bind(this)} />
+                <Inputboxes
+                    id={'createdOn'}
+                    readOnly={true}
+                    nameTag={'Created On'}
+                    type={'text'}
+                    value={createdOn} />
                 <br />
-                <label for={'id'}>Student ID: </label>
-                <input type={'text'} readOnly={true} id={'id'} value={id} onChange={this.handleTextChange.bind(this)} />
-                <br />
+                <Inputboxes
+                    id={'id'}
+                    readOnly={true}
+                    nameTag={'Student ID'}
+                    type={'text'}
+                    value={id} />
                 <button type='submit' onClick={this.handleSubmit}>Submit</button>
                 <div>
                     <h5>Current skills</h5>
@@ -151,22 +169,14 @@ class Newstudentform extends React.Component {
 
                             {existingSkills.map((arr, i) =>
                                 <li>
-                                    <Select
+                                    <SkillzDropdown
+                                        index={i}
                                         isSearchable={true}
-                                        isDisabled={isReadOnly}
-                                        onChange={(event) => this.handleSelectChange(event, i, 'existingSkills')}
+                                        isReadonly={isReadOnly}
+                                        onChange={(event) => this.handleChange(event, i, 'existingSkills')}
                                         options={this.state.skillOptions}
                                         value={this.convertToValueLabel(arr, 'skillsArr')}
-                                    />
-                                    <input
-                                        type={'number'}
-                                        onChange={(event) => this.handleSelectChange(event, i, 'existingSkills')}
-                                        step={1}
-                                        min={1}
-                                        max={5}
-                                        readOnly={isReadOnly}
-                                        value={arr[1]}
-                                        index={i}
+                                        arr={arr}
                                     />
                                 </li>
                             )}
@@ -181,22 +191,14 @@ class Newstudentform extends React.Component {
 
                             {desiredSkills.map((arr, i) =>
                                 <li>
-                                    <Select
+                                    <SkillzDropdown
+                                        index={i}
                                         isSearchable={true}
-                                        isDisabled={isReadOnly}
-                                        onChange={(event) => this.handleSelectChange(event, i, 'desiredSkills')}
+                                        isReadonly={isReadOnly}
+                                        onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
                                         options={this.state.skillOptions}
                                         value={this.convertToValueLabel(arr, 'skillsArr')}
-                                    />
-                                    <input
-                                        type={'number'}
-                                        onChange={(event) => this.handleSelectChange(event, i, 'desiredSkills')}
-                                        step={1}
-                                        min={1}
-                                        max={5}
-                                        readOnly={isReadOnly}
-                                        value={arr[1]}
-                                        index={i}
+                                        arr={arr}
                                     />
                                 </li>
                             )}
