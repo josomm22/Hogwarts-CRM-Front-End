@@ -3,9 +3,9 @@ import Select from 'react-select';
 import '../css/studentcomponents.css'
 
 
-export const Inputboxes = props => {
+export const Inputbox = props => {
     return (
-        <div>
+        <div className = 'inputBox'>
             <label htmlFor={props.id}>{props.nameTag}: </label>
             <input type={props.type} readOnly={props.readOnly} id={props.id} value={props.value} onChange={props.onChange} />
         </div>

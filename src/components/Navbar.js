@@ -9,22 +9,34 @@ const Navbar = () => {
     return (
         <nav className='navBar'>
             <div className='centerNav'>
-                <div className='navButton'>
-                    <NavLink exact={true} activeClassName="is-Active" to="/students"> Home </NavLink>
-                </div>
-                <div className='navButton'>
-                    <NavLink exact={true} activeClassName="is-Active" to="/studentdetails/1001"> Student Details </NavLink>
-                </div>
-                <div className='navButton'>
-                    <NavLink activeClassName="is-Active" to="/newstudent">
-                        New Student
-                    </NavLink>
-                </div>
-                <div className='navButton'>
-                    <NavLink activeClassName="is-Active" to="/summary">
-                        Summary
-                    </NavLink>
-                </div>
+                <NavLink exact={true} activeClassName="is-Active" to="/students">
+                    <div className='navButton'>
+                        <h4>
+                            Home
+                        </h4>
+                    </div>
+                </NavLink>
+                <NavLink exact={true} activeClassName="is-Active" to="/studentdetails/1001">
+                    <div className='navButton'>
+                        <h4>
+                            Student Details
+                        </h4>
+                    </div>
+                </NavLink>
+                <NavLink activeClassName="is-Active" to="/newstudent">
+                    <div className='navButton'>
+                        <h4>
+                            New Student
+                        </h4>
+                    </div>
+                </NavLink>
+                <NavLink activeClassName="is-Active" to="/summary">
+                    <div className='navButton'>
+                        <h4>
+                            Summary
+                        </h4>
+                    </div>
+                </NavLink>
 
             </div>
         </nav>

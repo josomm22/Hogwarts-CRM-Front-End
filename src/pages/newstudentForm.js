@@ -1,11 +1,13 @@
 import React from 'react';
-import { Inputboxes, SkillzDropdown } from '../components/studentComponents';
+import { Inputbox, SkillzDropdown } from '../components/studentComponents';
 import Select from 'react-select';
 import { getSkillzObject, getCoursesObject } from '../api/api';
 import { postNewStudent } from '../api/api'
+import '../css/studentform.css'
+
 
 class studentObj {
-    constructor(first_name,last_name,existing_skillz,desired_skillz,course_interests,id){
+    constructor(first_name, last_name, existing_skillz, desired_skillz, course_interests, id) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.existing_skillz = existing_skillz;
@@ -98,8 +100,8 @@ class Newstudentform extends React.Component {
 
     };
     handleSubmit() {
-        const {firstName, lastName, desiredSkills,existingSkills,courseInterests,id} = this.state;
-        let newStudentObject = new studentObj (firstName,lastName,existingSkills,desiredSkills,courseInterests)
+        const { firstName, lastName, desiredSkills, existingSkills, courseInterests, id } = this.state;
+        let newStudentObject = new studentObj(firstName, lastName, existingSkills, desiredSkills, courseInterests)
         postNewStudent(newStudentObject).then(response => {
             console.log(response)
             const newStudent = response.new_student
@@ -129,83 +131,89 @@ class Newstudentform extends React.Component {
         const { firstName, lastName, createdOn, id, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
 
         return (
-            <div>
+            <div className='studentDetails'>
                 <h1>Student Details</h1>
-                <Inputboxes
-                    id={'firstName'}
-                    readOnly={isReadOnly}
-                    nameTag={'First Name'}
-                    type={'text'}
-                    value={firstName}
-                    onChange={this.handleTextChange} />
-                <Inputboxes
-                    id={'lastName'}
-                    readOnly={isReadOnly}
-                    nameTag={'Last Name'}
-                    type={'text'}
-                    value={lastName} 
-                    onChange={this.handleTextChange} />
+                <div className='textArea'>
+                    <div className='firstLastName'>
 
-                <br />
-                <Inputboxes
-                    id={'createdOn'}
-                    readOnly={true}
-                    nameTag={'Created On'}
-                    type={'text'}
-                    value={createdOn} />
-                <br />
-                <Inputboxes
-                    id={'id'}
-                    readOnly={true}
-                    nameTag={'Student ID'}
-                    type={'text'}
-                    value={id} />
-                <button type='submit' onClick={this.handleSubmit}>Submit</button>
-                <div>
-                    <h5>Current skills</h5>
-                    {this.state.skillsArr
-                        &&
-                        <ol>
-
-                            {existingSkills.map((arr, i) =>
-                                <li>
-                                    <SkillzDropdown
-                                        index={i}
-                                        isSearchable={true}
-                                        isReadonly={isReadOnly}
-                                        onChange={(event) => this.handleChange(event, i, 'existingSkills')}
-                                        options={this.state.skillOptions}
-                                        value={this.convertToValueLabel(arr, 'skillsArr')}
-                                        arr={arr}
-                                    />
-                                </li>
-                            )}
-                        </ol>
-                    }
+                        <Inputbox
+                            id={'firstName'}
+                            readOnly={isReadOnly}
+                            nameTag={'First Name'}
+                            type={'text'}
+                            value={firstName}
+                            onChange={this.handleTextChange} />
+                        <Inputbox
+                            id={'lastName'}
+                            readOnly={isReadOnly}
+                            nameTag={'Last Name'}
+                            type={'text'}
+                            value={lastName}
+                            onChange={this.handleTextChange} />
+                    </div>
+                    <div className='dates'>
+                        <Inputbox
+                            id={'createdOn'}
+                            readOnly={true}
+                            nameTag={'Created On'}
+                            type={'text'}
+                            value={createdOn} />
+                    </div>                <Inputbox
+                        id={'id'}
+                        readOnly={true}
+                        nameTag={'Student ID'}
+                        type={'text'}
+                        value={id} />
+                    <button className='btn' type='submit' onClick={this.handleSubmit}>Submit</button>
                 </div>
-                <div>
-                    <h5>Desired skills</h5>
-                    {this.state.skillsArr
-                        &&
-                        <ol>
+                <div className='skillsWrapper'>
 
-                            {desiredSkills.map((arr, i) =>
-                                <li>
-                                    <SkillzDropdown
-                                        index={i}
-                                        isSearchable={true}
-                                        isReadonly={isReadOnly}
-                                        onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
-                                        options={this.state.skillOptions}
-                                        value={this.convertToValueLabel(arr, 'skillsArr')}
-                                        arr={arr}
-                                    />
-                                </li>
-                            )}
-                        </ol>
-                    }
+                    <div className='existing skills'>
+                        <h5>Current skills</h5>
+                        {this.state.skillsArr
+                            &&
+                            <ol>
+
+                                {existingSkills.map((arr, i) =>
+                                    <li>
+                                        <SkillzDropdown
+                                            index={i}
+                                            isSearchable={true}
+                                            isReadonly={isReadOnly}
+                                            onChange={(event) => this.handleChange(event, i, 'existingSkills')}
+                                            options={this.state.skillOptions}
+                                            value={this.convertToValueLabel(arr, 'skillsArr')}
+                                            arr={arr}
+                                        />
+                                    </li>
+                                )}
+                            </ol>
+                        }
+                    </div>
+                    <div className='desired skills'>
+                        <h5>Desired skills</h5>
+                        {this.state.skillsArr
+                            &&
+                            <ol>
+
+                                {desiredSkills.map((arr, i) =>
+                                    <li>
+                                        <SkillzDropdown
+                                            index={i}
+                                            isSearchable={true}
+                                            isReadonly={isReadOnly}
+                                            onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
+                                            options={this.state.skillOptions}
+                                            value={this.convertToValueLabel(arr, 'skillsArr')}
+                                            arr={arr}
+                                        />
+                                    </li>
+                                )}
+                            </ol>
+                        }
+                    </div>
                 </div>
-                <div className = 'courseInterests'>
+                <div className='courseInterests'>
                     <h5>Course Interests</h5>
                     {this.state.coursesArr
                         &&

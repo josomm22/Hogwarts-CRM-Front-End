@@ -21,20 +21,25 @@ body {
     padding: 0 5px;
     color: black;
 }
-.navButton a{
-    text-decoration: none;
+.navButton h4{
+    margin: 0;
     position: relative;
-    top: 25%;
+    top: 50%;
+    transform: translateY(-50%);
 }
-.navButton a:visited{
+
+.centerNav a{
+    text-decoration: none;
+}
+.centerNav a:visited{
     color: black;
 }
 .navButton:hover{
     background-color: whitesmoke;
 }
 
-.navButton a:active{
-    color: #FFFF;
+.centerNav a:active{
+    color: rgb(165, 164, 105);
 }
 /* student details */
 

@@ -1,9 +1,8 @@
 import React from 'react';
 import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
 import Select from 'react-select';
-import { Inputboxes, SkillzDropdown } from './studentComponents';
+import { Inputbox, SkillzDropdown } from './studentComponents';
 import '../css/studentform.css'
-// import {loadStudentData} from '../api/loaders'
 
 class studentObj {
     constructor(first_name, last_name, existing_skillz, desired_skillz, course_interests, id) {
@@ -142,51 +141,55 @@ class Studendetails extends React.Component {
     render() {
         const { firstName, lastName, createdOn, updatedOn, studentID, isReadOnly, existingSkills, desiredSkills, courseInterests } = this.state;
         return (
-            <div>
+            <div className = 'studentDetails'>
                 <h1>Student Details</h1>
-                <button onClick={
+                <button className='btn' onClick={
                     () => { this.setState({ isReadOnly: false }) }}>Edit</button>
-                <button onClick={this.updateStudentData}>
+                <button className='btn' onClick={this.updateStudentData}>
                     Save
                 </button>
                 <div className='textArea'>
+                    <div className='firstLastName'>
+                        <Inputbox
+                            id={'firstName'}
+                            readOnly={isReadOnly}
+                            nameTag={'First Name'}
+                            type={'text'}
+                            value={firstName}
+                            onChange={this.handleTextChange}
+                        />
+                        <Inputbox
+                            id={'lastName'}
+                            readOnly={isReadOnly}
+                            nameTag={'Last Name'}
+                            type={'text'}
+                            value={lastName}
+                            onChange={this.handleTextChange}
+                        />
+                    </div>
+                    <div className='dates'>
 
-                    <Inputboxes
-                        id={'firstName'}
-                        readOnly={isReadOnly}
-                        nameTag={'First Name'}
-                        type={'text'}
-                        value={firstName}
-                        onChange={this.handleTextChange}
-                    />
-                    <Inputboxes
-                        id={'lastName'}
-                        readOnly={isReadOnly}
-                        nameTag={'Last Name'}
-                        type={'text'}
-                        value={lastName}
-                        onChange={this.handleTextChange}
-                    />
-                    <br />
-                    <Inputboxes
-                        id={'createdOn'}
-                        readOnly={true}
-                        nameTag={'Created On'}
-                        type={'text'}
-                        value={createdOn} />
-                    <Inputboxes
-                        id={'updatedOn'}
-                        readOnly={true}
-                        nameTag={'Updated on'}
-                        type={'text'}
-                        value={updatedOn} />
-                    <br />
-                    <Inputboxes
-                        id={'id'}
-                        readOnly={true}
-                        nameTag={'Student ID'}
-                        type={'text'}
-                        value={studentID} />
+                        <Inputbox
+                            id={'createdOn'}
+                            readOnly={true}
+                            nameTag={'Created On'}
+                            type={'text'}
+                            value={createdOn} />
+                        <Inputbox
+                            id={'updatedOn'}
+                            readOnly={true}
+                            nameTag={'Updated on'}
+                            type={'text'}
+                            value={updatedOn} />
+                    </div>
+                    <div className='id'>
+                        <Inputbox
+                            id={'id'}
+                            readOnly={true}
+                            nameTag={'Student ID'}
+                            type={'text'}
+                            value={studentID} />
+                    </div>
                 </div>
                 <div className='skillsWrapper'>
 

@@ -1,9 +1,14 @@
-.selectRow{
-
+.selectRow {
+    display: flex;
+    width: 30vw;
 }
-.dropDown{
 
+.dropDown {
+    margin-right: 5px;
+    flex-grow: 1;
 }
-.numberInput{
-    
+
+.numberInput {
+    width: 30px;
+    border-radius: 5px;
 }
