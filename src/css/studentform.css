@@ -1,0 +1,33 @@
+.skillsWrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.skills {
+    display: flex;
+    flex-direction: column;
+}
+
+.skills h5 {
+    text-align: center;
+}
+
+.selectRow {
+    display: flex;
+    width: 30vw;
+}
+
+.dropDown {
+    margin-right: 5px;
+    flex-grow: 1;
+}
+
+.numberInput {
+    width: 30px;
+    border-radius: 5px;
+}
+.courseInterests{
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+}

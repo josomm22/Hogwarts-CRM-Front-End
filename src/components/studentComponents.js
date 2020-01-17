@@ -1,19 +1,21 @@
 import React from 'react';
 import Select from 'react-select';
+import '../css/studentcomponents.css'
 
 
 export const Inputboxes = props => {
     return (
         <div>
-            <label for={props.id}>{props.nameTag}: </label>
+            <label htmlFor={props.id}>{props.nameTag}: </label>
             <input type={props.type} readOnly={props.readOnly} id={props.id} value={props.value} onChange={props.onChange} />
         </div>
     )
 };
 export const SkillzDropdown = props => {
     return (
-        <div>
+        <div className = 'selectRow'>
             <Select
+            className = 'dropDown'
             isSearchable={true}
             isDisabled={props.isReadonly}
             onChange={(event) => props.onChange(event, props.index, 'existingSkills')}
@@ -21,6 +23,7 @@ export const SkillzDropdown = props => {
             value={props.value}
             />
             <input
+            className = 'numberInput'
             type={'number'}
             onChange={(event) => props.onChange(event, props.index, 'existingSkills')}
             step={1}

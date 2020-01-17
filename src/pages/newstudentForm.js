@@ -205,8 +205,8 @@ class Newstudentform extends React.Component {
                         </ol>
                     }
                 </div>
-                <div>
-                    <h5>Course Interests new</h5>
+                <div className = 'courseInterests'>
+                    <h5>Course Interests</h5>
                     {this.state.coursesArr
                         &&
                         <ol>

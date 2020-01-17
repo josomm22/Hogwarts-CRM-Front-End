@@ -2,6 +2,7 @@ import React from 'react';
 import { getStudentData, getSkillzObject, getCoursesObject, editStudent } from '../api/api';
 import Select from 'react-select';
 import { Inputboxes, SkillzDropdown } from './studentComponents';
+import '../css/studentform.css'
 // import {loadStudentData} from '../api/loaders'
 
 class studentObj {
@@ -148,92 +149,97 @@ class Studendetails extends React.Component {
                 <button onClick={this.updateStudentData}>
                     Save
                 </button>
-                <Inputboxes
-                    id={'firstName'}
-                    readOnly={isReadOnly}
-                    nameTag={'First Name'}
-                    type={'text'}
-                    value={firstName}
-                    onChange={this.handleTextChange} 
-                    />
-                <Inputboxes
-                    id={'lastName'}
-                    readOnly={isReadOnly}
-                    nameTag={'Last Name'}
-                    type={'text'}
-                    value={lastName} 
-                    onChange={this.handleTextChange} 
-                    />
-                <br />
-                <Inputboxes
-                    id={'createdOn'}
-                    readOnly={true}
-                    nameTag={'Created On'}
-                    type={'text'}
-                    value={createdOn} />
-                <Inputboxes
-                    id={'updatedOn'}
-                    readOnly={true}
-                    nameTag={'Updated on'}
-                    type={'text'}
-                    value={updatedOn} />
-                <br />
-                <Inputboxes
-                    id={'id'}
-                    readOnly={true}
-                    nameTag={'Student ID'}
-                    type={'text'}
-                    value={studentID} />
+                <div className='textArea'>
 
-                <div>
-                    <h5>Current skills</h5>
-                    {this.state.skillsArr
-                        &&
-                        this.state.studentData
-                        &&
-                        <ol>
+                    <Inputboxes
+                        id={'firstName'}
+                        readOnly={isReadOnly}
+                        nameTag={'First Name'}
+                        type={'text'}
+                        value={firstName}
+                        onChange={this.handleTextChange}
+                    />
+                    <Inputboxes
+                        id={'lastName'}
+                        readOnly={isReadOnly}
+                        nameTag={'Last Name'}
+                        type={'text'}
+                        value={lastName}
+                        onChange={this.handleTextChange}
+                    />
+                    <br />
+                    <Inputboxes
+                        id={'createdOn'}
+                        readOnly={true}
+                        nameTag={'Created On'}
+                        type={'text'}
+                        value={createdOn} />
+                    <Inputboxes
+                        id={'updatedOn'}
+                        readOnly={true}
+                        nameTag={'Updated on'}
+                        type={'text'}
+                        value={updatedOn} />
+                    <br />
+                    <Inputboxes
+                        id={'id'}
+                        readOnly={true}
+                        nameTag={'Student ID'}
+                        type={'text'}
+                        value={studentID} />
+                </div>
+                <div className='skillsWrapper'>
 
-                            {existingSkills.map((arr, i) =>
-                                <li>
-                                    <SkillzDropdown
-                                        index={i}
-                                        isSearchable={true}
-                                        isReadonly={isReadOnly}
-                                        onChange={(event) => this.handleChange(event, i, 'existingSkills')}
-                                        options={this.state.skillOptions}
-                                        value={this.convertToValueLabel(arr, 'skillsArr')}
-                                        arr={arr}
-                                    />
-                                </li>
-                            )}
-                        </ol>
-                    }
+                    <div className='existing skills'>
+                        <h5>Current skills</h5>
+                        {this.state.skillsArr
+                            &&
+                            this.state.studentData
+                            &&
+                            <ol>
+
+                                {existingSkills.map((arr, i) =>
+                                    <li key={i}>
+                                        <SkillzDropdown
+                                            index={i}
+                                            isSearchable={true}
+                                            isReadonly={isReadOnly}
+                                            onChange={(event) => this.handleChange(event, i, 'existingSkills')}
+                                            options={this.state.skillOptions}
+                                            value={this.convertToValueLabel(arr, 'skillsArr')}
+                                            arr={arr}
+                                        />
+                                    </li>
+                                )}
+                            </ol>
+                        }
+                    </div>
+                    <div className='desired skills'>
+                        <h5>Desired skills</h5>
+                        {this.state.skillsArr
+                            &&
+                            this.state.studentData
+                            &&
+                            <ol>
+                                {desiredSkills.map((arr, i) =>
+                                    <li key={i}>
+                                        <SkillzDropdown
+                                            index={i}
+                                            isSearchable={true}
+                                            isReadonly={isReadOnly}
+                                            onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
+                                            options={this.state.skillOptions}
+                                            value={this.convertToValueLabel(arr, 'skillsArr')}
+                                            arr={arr}
+                                        />
+                                    </li>
+                                )}
+                            </ol>
+                        }
+                    </div>
                 </div>
-                <div>
-                    <h5>Desired skills</h5>
-                    {this.state.skillsArr
-                        &&
-                        this.state.studentData
-                        &&
-                        <ol>
-                            {desiredSkills.map((arr, i) =>
-                                <li>
-                                    <SkillzDropdown
-                                        index={i}
-                                        isSearchable={true}
-                                        isReadonly={isReadOnly}
-                                        onChange={(event) => this.handleChange(event, i, 'desiredSkills')}
-                                        options={this.state.skillOptions}
-                                        value={this.convertToValueLabel(arr, 'skillsArr')}
-                                        arr={arr}
-                                    />
-                                </li>
-                            )}
-                        </ol>
-                    }
-                </div>
-                <div>
-                    <h5>Course Interests new</h5>
+                <div className='courseInterests'>
+                    <h5>Course Interests</h5>
                     {this.state.coursesArr
                         &&
                         this.state.studentData
@@ -242,6 +248,7 @@ class Studendetails extends React.Component {
 
                             {courseInterests.map((arr, i) =>
                                 <Select
+                                    key={i}
                                     isSearchable={true}
                                     isDisabled={isReadOnly}
                                     onChange={(event) => this.handleChange(event, i, 'courseInterests')}
