@@ -140,6 +140,33 @@ export function editStudent(object) {
     });
     return studentObject
 }
+export function getSummaryData() {
+    const dataObject = axios.get(baseUrl + '/students/skillssummary', {
+    }).then(response => {
+        // console.log('response is : ' + response.data)
+        return response.data;
+    }).catch(function (error) {
+        if (error.response) {
+            console.log(error.response.headers);
+        }
+        else if (error.request) {
+            console.log(error.request);
 
+        }
+        else {
+            console.log(error.message);
+
+        }
+        console.log(error.config);
+    });
+    return dataObject
+};
+
+export function getTotals(dataArray, labelsObject){
+    let labels = Object.values(labelsObject) 
+    for (let i = 0; i < labelsObject.length;i++){
+
+    }
+}
 // getTable();
 // getStudentData(1001);
