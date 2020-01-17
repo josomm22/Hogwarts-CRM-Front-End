@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let baseUrl = 'https://arcane-chamber-11355.herokuapp.com'
+let baseUrl = 'https://guarded-coast-70205.herokuapp.com'
 // let baseUrl = 'http://127.0.0.1:5000'
 
 export function getTable() {
