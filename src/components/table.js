@@ -4,6 +4,7 @@ import {
     BrowserRouter as Router,
     Link,
 } from "react-router-dom";
+import '../css/studenttable.css'
 
 // const MyContext = React.createContext();
 
@@ -45,8 +46,8 @@ export class Students extends React.Component {
         const { students, isLoading } = this.state;
 
         return (
-            <div>
-                <table>
+            <div className='studentsTable'>
+                <table >
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -66,11 +67,10 @@ export class Students extends React.Component {
                                 <td> </td>
                             </tr>
                         </tbody>
-
                     }
-                    {!isLoading &&
-                        students.map((obj, i) =>
-                            <tbody key={i}>
+                    <tbody>
+                        {!isLoading &&
+                            students.map((obj, i) =>
                                 <tr key={i}>
                                     <td>{obj.firstName} </td>
                                     <td>{obj.lastName} </td>
@@ -78,9 +78,9 @@ export class Students extends React.Component {
                                     <td>{obj.dateUpdated} </td>
                                     <td><Link to={'/studentdetails/' + obj.id} >details</Link></td>
                                 </tr>
-                            </tbody>
-                        )
-                    }
+                            )
+                        }
+                    </tbody>
                 </table>
 
             </div>

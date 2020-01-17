@@ -35,7 +35,7 @@ class Newstudentform extends React.Component {
             isReadOnly: false,
         }
         this.handleTextChange = this.handleTextChange.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
@@ -76,13 +76,11 @@ class Newstudentform extends React.Component {
     };
     handleTextChange(event) {
         let change = {}
-        console.log(event.target.value)
         change[event.target.id] = event.target.value
         this.setState(change)
     };
-    handleSelectChange(selectedOption, i, array) {
+    handleChange(selectedOption, i, array) {
         if (selectedOption.value) {
-            console.log('index is ' + i + 'value is ' + selectedOption.value);
             let oldArr = this.state[array]
             let oldVal = oldArr[i]
             oldVal[0] = parseInt(selectedOption.value)
@@ -90,7 +88,6 @@ class Newstudentform extends React.Component {
             this.setState({ array: oldArr })
 
         } else {
-            console.log('index is ' + i + 'value is ' + selectedOption.target.value)
             let oldArr = this.state[array]
             let oldVal = oldArr[i]
             oldVal[1] = parseInt(selectedOption.target.value)
@@ -103,7 +100,6 @@ class Newstudentform extends React.Component {
         const { firstName, lastName, desiredSkills, existingSkills, courseInterests, id } = this.state;
         let newStudentObject = new studentObj(firstName, lastName, existingSkills, desiredSkills, courseInterests)
         postNewStudent(newStudentObject).then(response => {
-            console.log(response)
             const newStudent = response.new_student
             this.setState({
                 firstName: newStudent.first_name,
@@ -223,7 +219,7 @@ class Newstudentform extends React.Component {
                                 <Select
                                     isSearchable={true}
                                     isDisabled={isReadOnly}
-                                    onChange={(event) => this.handleSelectChange(event, i, 'courseInterests')}
+                                    onChange={(event) => this.handleChange(event, i, 'courseInterests')}
                                     options={this.state.courseOptions}
                                     value={this.convertToValueLabel(arr, 'coursesArr')}
                                 />

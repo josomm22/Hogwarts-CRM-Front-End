@@ -9,7 +9,6 @@ export function getTable() {
         // console.log('response is : ' + response.data)
         return response.data;
     }).then(data => {
-        console.log(data.students);
         return data.students;
 
     }).catch(function (error) {
@@ -33,7 +32,6 @@ export function getStudentData(studentID) {
         // console.log('response is : ' + response.data)
         return response.data;
     }).then(data => {
-        console.log(data.student_details);
         // return data.student_details;
         return data.student_details
 

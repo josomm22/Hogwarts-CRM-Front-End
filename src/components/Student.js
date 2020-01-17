@@ -108,7 +108,6 @@ class Studendetails extends React.Component {
     };
     handleChange(selectedOption, i, array) {
         if (selectedOption.value) {
-            console.log('index is ' + i + 'value is ' + selectedOption.value);
             let oldArr = this.state[array]
             let oldVal = oldArr[i]
             oldVal[0] = parseInt(selectedOption.value)
@@ -116,7 +115,6 @@ class Studendetails extends React.Component {
             this.setState({ array: oldArr })
 
         } else {
-            console.log('index is ' + i + 'value is ' + selectedOption.target.value)
             let oldArr = this.state[array]
             let oldVal = oldArr[i]
             oldVal[1] = parseInt(selectedOption.target.value)
@@ -128,9 +126,7 @@ class Studendetails extends React.Component {
     updateStudentData() {
         const { firstName, lastName, desiredSkills, existingSkills, courseInterests, id } = this.state;
         let newStudentObject = new studentObj(firstName, lastName, existingSkills, desiredSkills, courseInterests, id)
-        console.log(newStudentObject)
         editStudent(newStudentObject).then(response => {
-            console.log(response)
             const details = response.student_details
             this.setState({
                 updatedOn: details.last_updated,
