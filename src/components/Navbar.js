@@ -9,18 +9,18 @@ const Navbar = () => {
     return (
         <nav className='navBar'>
             <div className='centerNav'>
-                <div className='button'>
+                <div className='navButton'>
                     <NavLink exact={true} activeClassName="is-Active" to="/students"> Home </NavLink>
                 </div>
-                <div className='button'>
+                <div className='navButton'>
                     <NavLink exact={true} activeClassName="is-Active" to="/studentdetails/1001"> Student Details </NavLink>
                 </div>
-                <div className='button'>
+                <div className='navButton'>
                     <NavLink activeClassName="is-Active" to="/newstudent">
                         New Student
                     </NavLink>
                 </div>
-                <div className='button'>
+                <div className='navButton'>
                     <NavLink activeClassName="is-Active" to="/summary">
                         Summary
                     </NavLink>

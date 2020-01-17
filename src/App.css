@@ -1,0 +1,39 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+/* navstuff */
+.navBar{
+    display: flex;
+    justify-content: center;
+}
+.centerNav{
+    display: flex;
+    border: 1px solid black;
+    width: 60vw;
+
+}
+.navButton{
+    height: 5vh;
+    padding: 0 5px;
+    color: black;
+}
+.navButton a{
+    text-decoration: none;
+    position: relative;
+    top: 25%;
+}
+.navButton a:visited{
+    color: black;
+}
+.navButton:hover{
+    background-color: whitesmoke;
+}
+
+.navButton a:active{
+    color: #FFFF;
+}
+/* student details */
+
