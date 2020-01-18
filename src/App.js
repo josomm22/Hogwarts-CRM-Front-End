@@ -11,7 +11,7 @@ import Navbar from './components/Navbar'
 import Welcome from './components/main'
 import Studentdetails from './components/Student'
 import Newstudentform from './pages/newstudentForm'
-import { Chart} from './pages/summary'
+import { SkillzPie} from './pages/summary'
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
             <Newstudentform />
           </Route>
           <Route path="/summary">
-            <Chart/>
+            <SkillzPie/>
           </Route>
           <Route path='/studentdetails/:id' component={Studentdetails} />
 

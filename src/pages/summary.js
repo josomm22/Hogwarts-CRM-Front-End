@@ -1,24 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Bar as BarChart } from 'react-chartjs-2'
+import { Pie, Bar as BarChart } from 'react-chartjs-2'
+import { getSummaryData } from '../api/api'
 
 
 export class SkillzPie extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: null,
 
         };
     };
     componentDidMount() {
-
+        this.loadData()
     }
-    loadData() {
+    async loadData() {
+        return await getSummaryData()
+            .then(result =>
+                this.setState({
+                    data: result
+                })
 
+            );
     }
     render() {
+        // const [dataset] = this.state
         return (
-            <div></div>
+            <div>
+                <h2>Average Level per Skill</h2>
+                <Pie
+                    data={this.state.data}
+                    width={600}
+                    height={400}
+                    options={{ maintainAspectRatio: false }}
+                />
+            </div>
         )
     }
 }
